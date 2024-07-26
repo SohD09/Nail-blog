@@ -13,9 +13,8 @@ const Header = () => {
         className="self-center whitespace-nowrap text-sm sm:text-xl font-bold dark:text-white"
       >
         <span className="px-2 py-1 bg-gradient-to-r from-dark-blue via-royal-blue to-dark-pink rounded-lg text-transparent bg-clip-text dark:text-white ">
-          Nail
+          Nail<span className="text-black dark:text-off-white">log.</span>
         </span>
-        log
       </Link>
       <form>
         <TextInput

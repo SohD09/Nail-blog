@@ -5,7 +5,6 @@
 :root {
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
-  font-weight: 400;
 }
 
 * {
@@ -16,9 +15,4 @@
 
 body {
   user-select: none;
-}
-
-a {
-  text-decoration: none;
-  color: black;
 }

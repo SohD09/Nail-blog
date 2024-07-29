@@ -2,6 +2,8 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signupbg from "../assets/images/signupbg.png";
+import signupbgm from "../assets/images/signupbgm2.png";
+import nails from "../assets/images/nails.png";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
@@ -39,11 +41,16 @@ const Signup = () => {
     }
   };
   return (
-    <div className=" min-h-[calc(100vh-100px)] relative flex justify-center items-center bg-gradient-to-tr from-pastel-magenta to-classic-rose xl:bg-none">
+    <div className=" min-h-[calc(100vh-100px)] relative flex justify-center items-center ">
       <img
         src={signupbg}
         alt="bg"
-        className="fixed top-0 left-0 object-fill -z-10 opacity-0 xl:opacity-100 "
+        className="fixed top-0 left-0 object-cover -z-10 opacity-0 xl:opacity-100 "
+      />
+      <img
+        src={nails}
+        alt="bg"
+        className="fixed top-0 left-0 object-cover -z-10 opacity-100 xl:opacity-0 "
       />
       <div className=" bg-white absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-400 p-5 shadow-lg bg-opacity-45 xl:bg-opacity-40 xl:min-h-[70%]">
         <div className=" flex p-3 max-w-3xl mx-auto my-auto flex-col lg:flex-row lg:items-center gap-5 ">

@@ -2,7 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signupbg from "../assets/images/signupbg.png";
-import signupbgm from "../assets/images/signupbgm2.png";
+
 import nails from "../assets/images/nails.png";
 
 const Signup = () => {

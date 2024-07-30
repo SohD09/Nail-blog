@@ -41,18 +41,18 @@ const Signup = () => {
     }
   };
   return (
-    <div className=" min-h-[calc(100vh-100px)] relative flex justify-center items-center ">
+    <div className="min-h-[calc(100vh-50px)] relative flex justify-center items-center bg-muted-pink -z-20">
       <img
         src={signupbg}
         alt="bg"
-        className="fixed top-0 left-0 object-cover -z-10 opacity-0 xl:opacity-100 "
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-0 xl:opacity-100 "
       />
       <img
         src={nails}
         alt="bg"
-        className="fixed top-0 left-0 object-cover -z-10 opacity-100 xl:opacity-0 "
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-100 xl:opacity-0 "
       />
-      <div className=" bg-white absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-400 p-5 shadow-lg bg-opacity-45 xl:bg-opacity-40 xl:min-h-[70%]">
+      <div className=" bg-white absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-400 p-5 shadow-lg bg-opacity-50 xl:bg-opacity-40 xl:min-h-[70%]">
         <div className=" flex p-3 max-w-3xl mx-auto my-auto flex-col lg:flex-row lg:items-center gap-5 ">
           <div className="flex-1">
             <Link

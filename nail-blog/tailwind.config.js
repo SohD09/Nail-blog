@@ -13,6 +13,7 @@ export default {
         "grey-blue": "#BFB8DA",
         "light-pink": "#E8B7D4",
         "dark-pink": "#A5678E",
+        "muted-pink": "#f4c3d3",
         cyclamen: "#F575A6",
         "pastel-magenta": "#f795c7",
         "classic-rose": "#f9cbe7",

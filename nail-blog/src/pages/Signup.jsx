@@ -34,14 +34,14 @@ const Signup = () => {
       if (data.success === false) return setErrorMessage(data.message);
       setLoading(false);
       if (res.ok) {
-        navigate("/sign-in");
+        navigate("/signin");
       }
     } catch (err) {
       setErrorMessage(err.message);
     }
   };
   return (
-    <div className="min-h-[calc(100vh-50px)] relative flex justify-center items-center bg-muted-pink -z-20">
+    <div className="min-h-[calc(100vh-50px)] relative flex justify-center items-center ">
       <img
         src={signupbg}
         alt="bg"
@@ -69,7 +69,7 @@ const Signup = () => {
               email and password or with Google.
             </p>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 z-100">
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
               <div>
                 <Label value="Your username" />

@@ -2,15 +2,20 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signinbg from "../assets/images/signinbg.png";
-
 import nails from "../assets/images/signinbgm.png";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 const Signin = () => {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
@@ -18,26 +23,26 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return setErrorMessage("Please fill out all fields.");
+      dispatch(signInFailure("Please fill out all fields."));
     }
     try {
-      setLoading(true);
-      setErrorMessage(null);
-      setSuccessMessage(null);
+      dispatch(signInStart());
+
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setLoading(false);
-      if (data.success === false) return setErrorMessage(data.message);
+
+      if (data.success === false) dispatch(signInFailure(data.message));
 
       if (res.ok) {
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (err) {
-      setErrorMessage(err.message);
+      dispatch(signInFailure(err.message));
     }
   };
   return (
@@ -113,7 +118,6 @@ const Signin = () => {
             {errorMessage && (
               <Alert className="mt-2 bg-red-300 text-red-950" color="red">
                 {errorMessage}
-                {console.log(errorMessage)}
               </Alert>
             )}
           </div>

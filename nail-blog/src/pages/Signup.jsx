@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import signupbg from "../assets/images/signupbg.png";
 
 import nails from "../assets/images/nails.png";
+import OAuth from "../components/OAuth";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
@@ -112,6 +113,7 @@ const Signup = () => {
                   "Signup"
                 )}
               </Button>
+              <OAuth />
             </form>
             <div className="flex gap-2 mt-5 text-sm sm:text-base ">
               <span>Have an account?</span>

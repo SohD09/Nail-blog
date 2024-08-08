@@ -9,10 +9,11 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 const Signin = () => {
   const [formData, setFormData] = useState({});
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -108,6 +109,7 @@ const Signin = () => {
                   "Signin"
                 )}
               </Button>
+              <OAuth />
             </form>
             <div className="flex gap-2 mt-5 text-sm sm:text-base ">
               <span>Donot have an account?</span>
@@ -115,9 +117,9 @@ const Signin = () => {
                 Signup
               </Link>
             </div>
-            {errorMessage && (
+            {error && (
               <Alert className="mt-2 bg-red-300 text-red-950" color="red">
-                {errorMessage}
+                {error}
               </Alert>
             )}
           </div>

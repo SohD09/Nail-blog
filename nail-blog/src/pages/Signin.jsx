@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signinbg from "../assets/images/signinbg.png";
 import nails from "../assets/images/signinbgm.png";
+import darkbg from "../assets/images/darkbg.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
@@ -51,26 +52,31 @@ const Signin = () => {
       <img
         src={signinbg}
         alt="bg"
-        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-0 xl:opacity-100 "
+        className="fixed  top-0 left-0 h-full w-full object-cover -z-10 opacity-0 xl:opacity-100 dark:opacity-0"
       />
       <img
         src={nails}
         alt="bg"
-        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-100 xl:opacity-0 "
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-100 xl:opacity-0 dark:opacity-0"
       />
-      <div className=" bg-white absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-500 p-5 shadow-md bg-opacity-50 xl:bg-opacity-40 xl:min-h-[70%]">
+      <img
+        src={darkbg}
+        alt="bg"
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-0 dark:opacity-100 "
+      />
+      <div className=" bg-white dark:bg-slate-700 absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-500 dark:shadow-gray-800 p-5 shadow-md bg-opacity-50 xl:bg-opacity-40 dark:bg-opacity-35 xl:min-h-[70%]">
         <div className=" flex p-3 max-w-3xl mx-auto my-auto flex-col lg:flex-row lg:items-center gap-5 ">
           <div className="flex-1">
             <Link
               to="/"
               className="text-sm sm:text-4xl font-bold dark:text-white "
             >
-              <span className=" bg-gradient-to-r from-royal-blue to-cyclamen rounded-lg text-transparent bg-clip-text dark:bg-gradient-to-r dark:from-light-cobalt-blue dark:to-cyclamen">
+              <span className=" bg-gradient-to-r from-royal-blue to-dark-pink rounded-lg text-transparent bg-clip-text dark:bg-gradient-to-r dark:from-light-cobalt-blue dark:to-cyclamen">
                 Nailed
                 <span className="text-black dark:text-off-white">It.</span>
               </span>
             </Link>
-            <p className="font-Rosaviro text-dark-blue text-sm sm:text-md mt-5">
+            <p className="font-Rosaviro text-dark-blue dark:text-white text-sm sm:text-md mt-5">
               To checkout exciting nail art ideas and tips, Signin with your
               email and password.
             </p>

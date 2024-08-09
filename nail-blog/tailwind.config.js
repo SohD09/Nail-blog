@@ -22,6 +22,7 @@ export default {
         vodka: "#c4b5e0",
         "light-cobalt-blue": "#85aadf",
         "cyan-blue-azure": "#447ac4",
+        "dark-theme-bg": "rgb(16,23,42)",
       },
       fontFamily: {
         Rosaviro: ["Rosarivo"],

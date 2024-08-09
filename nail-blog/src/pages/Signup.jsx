@@ -2,7 +2,7 @@ import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signupbg from "../assets/images/signupbg.png";
-
+import darkbg from "../assets/images/bgdarknails.png";
 import nails from "../assets/images/nails.png";
 import OAuth from "../components/OAuth";
 
@@ -51,9 +51,14 @@ const Signup = () => {
       <img
         src={nails}
         alt="bg"
-        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-100 xl:opacity-0 "
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10  opacity-100 xl:opacity-0 "
       />
-      <div className=" bg-white absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-400 p-5 shadow-lg bg-opacity-50 xl:bg-opacity-40 xl:min-h-[70%]">
+      <img
+        src={darkbg}
+        alt="bg"
+        className="fixed top-0 left-0 h-full w-full object-cover -z-10 opacity-0 dark:opacity-100 "
+      />
+      <div className=" bg-white dark:bg-slate-700 absolute min-h-[50%] w-[60%] flex rounded-lg shadow-gray-400 dark:shadow-gray-800 p-5 shadow-lg bg-opacity-50 xl:bg-opacity-40 dark:bg-opacity-30 xl:min-h-[70%]">
         <div className=" flex p-3 max-w-3xl mx-auto my-auto flex-col lg:flex-row lg:items-center gap-5 ">
           <div className="flex-1">
             <Link
@@ -65,7 +70,7 @@ const Signup = () => {
                 <span className="text-black dark:text-off-white">It.</span>
               </span>
             </Link>
-            <p className="font-Rosaviro text-dark-blue text-sm sm:text-md mt-5">
+            <p className="font-Rosaviro text-dark-blue text-sm sm:text-md mt-5 dark:text-white">
               To checkout exciting nail art ideas and tips, Signup with your
               email and password or with Google.
             </p>

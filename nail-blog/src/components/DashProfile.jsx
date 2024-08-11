@@ -1,7 +1,11 @@
-import { Alert, Button, TextInput, Toast, ToastToggle } from "flowbite-react";
+import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signoutSuccess,
   updateFailure,
   updateStart,
   updateSuccess,
@@ -13,7 +17,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { HiCheck, HiExclamationCircle } from "react-icons/hi";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -119,6 +123,38 @@ const DashProfile = () => {
       setUpdateUserError(error.message);
     }
   };
+  const handleDeleteUser = async () => {
+    setShowModal(false);
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="max-w-lg mx-auto p-3 w-full ">
       <h1 className="text-2xl font-semibold text-center my-3">Profile</h1>
@@ -207,6 +243,7 @@ const DashProfile = () => {
           type="button"
           className="cursor-pointer bg-gradient-to-r from-royal-blue to-dark-pink w-1/2 text-red-300"
           outline
+          onClick={() => setShowModal(true)}
         >
           Delete Account
         </Button>
@@ -214,28 +251,53 @@ const DashProfile = () => {
           type="button"
           className="cursor-pointer bg-gradient-to-r from-royal-blue to-dark-pink w-1/2 text-red-300"
           outline
+          onClick={handleSignout}
         >
           Sign Out
         </Button>
       </div>
       {updateUserSuccess && (
-        <Toast className="w-fit mt-3">
-          <div className="inline-flex h-8 w-7 shrink-0 items-center justify-center rounded-lg bg-green-100 text-green-500 dark:bg-green-800 dark:text-green-200">
-            <HiCheck className="h-5 w-5" />
-          </div>
-          <div className="ml-3 text-sm font-normal ">{updateUserSuccess}</div>
-          <ToastToggle />
-        </Toast>
+        <Alert
+          color="success"
+          className="mt-5"
+          onDismiss={() => setUpdateUserSuccess(null)}
+        >
+          {updateUserSuccess}
+        </Alert>
       )}
       {updateUserError && (
-        <Toast className=" w-fit mt-3 ">
-          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200">
-            <HiExclamationCircle className="h-5 w-5" />
-          </div>
-          <div className="ml-3 text-sm font-normal">{updateUserError}</div>
-          <ToastToggle />
-        </Toast>
+        <Alert
+          color="failure"
+          className="mt-5"
+          onDismiss={() => setUpdateUserError(null)}
+        >
+          {updateUserError}
+        </Alert>
       )}
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body className="bg-light-pink bg-opacity-20 dark:bg-slate-300">
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete your account?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={handleDeleteUser}>
+                Yes, I'm sure
+              </Button>
+              <Button color="gray" onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

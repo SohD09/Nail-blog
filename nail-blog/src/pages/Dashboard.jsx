@@ -13,7 +13,7 @@ const Dashboard = () => {
     if (tabFromUrl) setTab(tabFromUrl);
   }, [location.search]);
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-dark-theme-bg md:flex-row">
+    <div className="relative flex flex-col min-h-screen bg-white dark:bg-dark-theme-bg md:flex-row bg-[url('/polishlight.jpeg')] dark:bg-[url('/polishdark.jpg')] bg-cover">
       <div className="md:w-[1/5]">
         <DashSidebar />
       </div>

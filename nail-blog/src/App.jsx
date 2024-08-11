@@ -4,7 +4,11 @@ import { lazy, Suspense } from "react";
 import Loader from "./components/Loader";
 import Header from "./components/Header";
 import FooterComponent from "./components/FooterComponent";
+import AdminOnlyPrivateRoute from "./components/AdminOnlyPrivateRoute";
+const CreatePost = lazy(() => import("./pages/CreatePost"));
+
 const PrivateRoute = lazy(() => import("./components/PrivateRoute"));
+
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -23,6 +27,9 @@ const App = () => {
           <Route path="/posts" element={<Projects />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<AdminOnlyPrivateRoute />}>
+            <Route path="/create-post" element={<CreatePost />} />
           </Route>
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />

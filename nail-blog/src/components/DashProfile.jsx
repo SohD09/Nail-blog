@@ -21,6 +21,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -32,7 +33,7 @@ const DashProfile = () => {
   const [updateUserError, setUpdateUserError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const filePickerRef = useRef();
 
@@ -231,12 +232,23 @@ const DashProfile = () => {
         />
         <Button
           type="submit"
-          className="bg-gradient-to-r from-royal-blue to-dark-pink"
           gradientDuoTone="purpleToBlue"
           outline
+          disabled={loading || imageFileUploading}
         >
-          Update
+          {loading ? "Loading..." : "Update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full bg-gradient-to-r from-royal-blue to-dark-pink"
+            >
+              Create a post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className=" flex justify-between mt-5 gap-3">
         <Button

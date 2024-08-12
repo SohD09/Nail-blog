@@ -5,6 +5,7 @@ import Loader from "./components/Loader";
 import Header from "./components/Header";
 import FooterComponent from "./components/FooterComponent";
 import AdminOnlyPrivateRoute from "./components/AdminOnlyPrivateRoute";
+
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 
 const PrivateRoute = lazy(() => import("./components/PrivateRoute"));

@@ -70,47 +70,49 @@ const PostPage = () => {
     );
 
   return (
-    <main className="p-6 flex flex-col max-w-7xl mx-auto min-h-screen dark:bg-black dark:bg-opacity-40">
-      <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl break-words">
-        {post && post.title}
-      </h1>
-      <Link
-        to={`search?category=${post && post.category}`}
-        className="self-center mt-5"
-      >
-        <Button color="gray" pill size="xs">
-          {" "}
-          {post && post.category}{" "}
-        </Button>
-      </Link>
-      <img
-        src={post && post.image}
-        alt={post && post.title}
-        className="mt-10 p-3 max-h-[700px] w-full object-cover"
-      />
+    <div className="min-h-screen w-full bg-[url(\spillbg.jpg)] dark:bg-[url(\spillbgdark.jpg)] bg-contain">
+      <main className="p-6 flex flex-col max-w-7xl mx-auto min-h-screen dark:bg-black dark:bg-opacity-40">
+        <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl break-words">
+          {post && post.title}
+        </h1>
+        <Link
+          to={`search?category=${post && post.category}`}
+          className="self-center mt-5"
+        >
+          <Button color="gray" pill size="xs">
+            {" "}
+            {post && post.category}{" "}
+          </Button>
+        </Link>
+        <img
+          src={post && post.image}
+          alt={post && post.title}
+          className="mt-10 p-3 max-h-[700px] w-full object-cover"
+        />
 
-      <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
-        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span className="italic">
-          {post && (post.content.length / 1000).toFixed(0)} mins read
-        </span>
-      </div>
-
-      <div
-        className="p-3 max-w-4xl mb-14 mx-auto w-full post-content break-words"
-        dangerouslySetInnerHTML={{ __html: post && post.content }}
-      ></div>
-
-      {/* <CommentSection postId={post._id} /> */}
-
-      <div className="flex flex-col justify-center items-center my-14">
-        <h1 className="text-2xl mb-10">Recent Articles</h1>
-        <div className="flex flex-wrap  gap-5 mt-5 justify-center">
-          {recentPosts &&
-            recentPosts.map((post) => <PostCard key={post.id} post={post} />)}
+        <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
+          <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
+          <span className="italic">
+            {post && (post.content.length / 1000).toFixed(0)} mins read
+          </span>
         </div>
-      </div>
-    </main>
+
+        <div
+          className="p-3 max-w-4xl mb-14 mx-auto w-full post-content break-words"
+          dangerouslySetInnerHTML={{ __html: post && post.content }}
+        ></div>
+
+        {/* <CommentSection postId={post._id} /> */}
+
+        <div className="flex flex-col justify-center items-center my-14">
+          <h1 className="text-2xl mb-10">Recent Articles</h1>
+          <div className="flex flex-wrap  gap-5 mt-5 justify-center">
+            {recentPosts &&
+              recentPosts.map((post) => <PostCard key={post.id} post={post} />)}
+          </div>
+        </div>
+      </main>
+    </div>
   );
 };
 

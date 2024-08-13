@@ -23,7 +23,7 @@ const FooterComponent = () => {
                 to="/"
                 className="self-center whitespace-nowrap text-sm sm:text-xl font-bold dark:text-white"
               >
-                <span className="px-2 py-1 bg-gradient-to-r from-royal-blue to-dark-pink rounded-lg text-transparent bg-clip-text dark:text-white ">
+                <span className="px-2 py-1 bg-gradient-to-r from-royal-blue to-dark-pink rounded-lg text-transparent bg-clip-text dark:bg-gradient-to-r dark:from-light-cobalt-blue dark:to-cyclamen ">
                   Nailed
                   <span className="text-black dark:text-off-white">It.</span>
                 </span>

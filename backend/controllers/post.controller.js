@@ -13,8 +13,10 @@ export const create = async (req, res, next) => {
     .join("-")
     .toLowerCase()
     .replace(/[^a-zA-Z0-9-]/g, "");
+  console.log(req.body);
   const newPost = new Post({
     ...req.body,
+    category: req.body.category,
     slug,
     userId: req.user.id,
   });

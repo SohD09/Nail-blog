@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://firebasestorage.googleapis.com/v0/b/mern-blog-14138.appspot.com/o/1711317961889-DefaultArticle.png?alt=media&token=48ab7d58-4021-442f-ae1b-042361ff4b4c",
+        "https://firebasestorage.googleapis.com/v0/b/nailedit-6db10.appspot.com/o/defaultt-post.jpg?alt=media&token=99dd12d6-1735-47d5-8090-811456284919",
     },
     category: {
       type: String,

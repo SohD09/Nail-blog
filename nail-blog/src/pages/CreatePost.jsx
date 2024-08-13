@@ -161,7 +161,7 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[url(\spillbg.jpg)] dark:bg-[url(\spillbgdark.jpg)]">
+    <div className="min-h-screen w-full bg-[url(\spillbg.jpg)] dark:bg-[url(\spillbgdark.jpg)] bg-contain">
       <div className="p-3 max-w-5xl mx-auto min-h-screen bg-gray-400 dark:bg-gray-900 bg-opacity-35">
         <h1 className="text-center text-3xl my-7 font-semibold">
           Create a post
@@ -183,6 +183,7 @@ const CreatePost = () => {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
+              <option value="">Select Category</option>
               <option value="nail-art">Nail Art</option>
               <option value="nail-care">Nail Care</option>
               <option value="product-review">Product review</option>

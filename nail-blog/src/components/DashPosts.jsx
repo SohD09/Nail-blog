@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { set } from "mongoose";
+import { FaCheck, FaTimes } from "react-icons/fa";
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
@@ -81,15 +81,18 @@ const DashPosts = () => {
               <Table.HeadCell>Post image</Table.HeadCell>
               <Table.HeadCell>Post title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
+              <Table.HeadCell>Featured</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
+              <Table.HeadCell>Edit</Table.HeadCell>
             </Table.Head>
+
             {userPosts.map((post) => (
-              <Table.Body className="divide-y">
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                  <Table.Cell>
+              <Table.Body key={post.id} className="divide-y">
+                <Table.Row className="bg-white dark:border-gray-700 dark:bg-black dark:bg-opacity-30">
+                  <Table.Cell key={post.updatedAt}>
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell key={post.image}>
                     <Link to={`/post/${post.slug}`}>
                       <img
                         src={post.image}
@@ -98,7 +101,7 @@ const DashPosts = () => {
                       />
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell key={post.title}>
                     <Link
                       className="font-medium text-gray-900 dark:text-white"
                       to={`/post/${post.slug}`}
@@ -108,15 +111,30 @@ const DashPosts = () => {
                   </Table.Cell>
                   <Table.Cell>{post.category}</Table.Cell>
                   <Table.Cell>
+                    {post.isFeatured ? (
+                      <FaCheck className="text-green-500" />
+                    ) : (
+                      <FaTimes className="text-red-500" />
+                    )}
+                  </Table.Cell>
+                  <Table.Cell>
                     <span
+                      className="font-medium text-red-500 hover:underline cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
                         setPostIdToDelete(post._id);
                       }}
-                      className="font-medium text-red-500 hover:underline cursor-pointer"
                     >
                       Delete
                     </span>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Link
+                      className="text-teal-500 hover:underline cursor-pointer"
+                      to={`/update-post/${post._id}`}
+                    >
+                      <span>Edit</span>
+                    </Link>
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>

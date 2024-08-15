@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Alert,
   Button,
@@ -6,7 +7,8 @@ import {
   Select,
   TextInput,
 } from "flowbite-react";
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+
 import {
   ref,
   getDownloadURL,
@@ -16,23 +18,55 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
 
-const CreatePost = () => {
+const UpdatePost = () => {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "uncategorized",
+    isFeatured: "false",
+    content: "",
+    image: "",
+  });
+
+  const [publishError, setPublishError] = useState(null);
+  const { postId } = useParams();
 
   const [fileURL, setFileURL] = useState(null);
   const [imageURLProgress, setImageURLProgress] = useState(null);
   const [imageURLError, setImageURLError] = useState(null);
   const [imageURL, setImageURL] = useState(null);
 
-  const [publishError, setPublishError] = useState(null);
-
   const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    try {
+      const fetchPost = async () => {
+        const res = await fetch(`/api/post/getposts?postId=${postId}`);
+        const data = await res.json();
+        if (!res.ok) {
+          console.log(data.message);
+          setPublishError(data.message);
+          return;
+        }
+        if (res.ok) {
+          setPublishError(null);
+          setFormData(data.posts[0]);
+        }
+      };
+
+      fetchPost();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [postId]);
 
   const handleUploadImage = async () => {
     try {
@@ -76,18 +110,22 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/post/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
         return;
       }
+
       if (res.ok) {
         setPublishError(null);
         navigate(`/post/${data.slug}`);
@@ -156,11 +194,9 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[url(/spillbg.jpg)] dark:bg-[url(/spillbgdark.jpg)] bg-contain">
-      <div className="p-3 max-w-5xl mx-auto min-h-screen bg-gray-400 dark:bg-gray-900 bg-opacity-35">
-        <h1 className="text-center text-3xl my-7 font-semibold">
-          Create a post
-        </h1>
+    <div className="min-h-screen w-full bg-[url(\spillbg.jpg)] dark:bg-[url(\spillbgdark.jpg)] bg-contain">
+      <div className="p-3 max-w-5xl mx-auto min-h-screen bg-none">
+        <h1 className="text-center text-3xl my-7 font-semibold">Update Post</h1>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4 sm:flex-row justify-between">
             <TextInput
@@ -172,6 +208,7 @@ const CreatePost = () => {
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
               }
+              value={formData.title}
             />
             <Select
               onChange={(e) =>
@@ -195,9 +232,9 @@ const CreatePost = () => {
           </div>
 
           {/* 
-          Banner Image upload
-        */}
-          <div className="flex flex-col gap-4 border-4 border-teal-500 border-dotted p-3">
+                Banner Image upload
+            */}
+          <div className="flex flex-col gap-4 border-1 border-teal-600 border p-3">
             <Label htmlFor="Banner image upload" value="Select Banner image" />
             <div className="flex items-center justify-between">
               <FileInput
@@ -208,13 +245,14 @@ const CreatePost = () => {
               <Button
                 type="button"
                 className="bg-gradient-to-r from-dark-pink to-dark-blue hover:text-white"
+                gradientDuoTone="skyToBlue"
                 size="sm"
                 outline
                 onClick={handleUploadImage}
                 disabled={imageUploadProgress}
               >
                 {imageUploadProgress ? (
-                  <div className="w-16 h-16 ">
+                  <div className="w-16 h-16">
                     <CircularProgressbar
                       value={imageUploadProgress}
                       text={`${imageUploadProgress || 0}%`}
@@ -232,8 +270,8 @@ const CreatePost = () => {
           )}
 
           {/* 
-        Image upload for URL
-      */}
+                Image upload for URL
+            */}
           <div className="flex flex-col gap-4 border-1 border-teal-600 border p-3">
             <Label htmlFor="URL image upload" value="Select image to get URL" />
             <div className="flex items-center justify-between">
@@ -245,6 +283,7 @@ const CreatePost = () => {
               <Button
                 type="button"
                 className="bg-gradient-to-r from-dark-pink to-dark-blue hover:text-white"
+                gradientDuoTone="skyToBlue"
                 size="sm"
                 outline
                 onClick={handleUploadURL}
@@ -278,7 +317,7 @@ const CreatePost = () => {
           <Editor
             apiKey={import.meta.env.VITE_TINYMCE_API}
             onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue="<p>Write something...</p>"
+            initialValue={formData.content}
             init={{
               height: 500,
               menubar: false,
@@ -307,7 +346,7 @@ const CreatePost = () => {
                 "undo redo | blocks | " +
                 "bold italic forecolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist | " +
-                "removeformat | codesample | link image | outdent indent | help",
+                "removeformat |  codesample | link image | outdent indent | help",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
@@ -370,4 +409,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default UpdatePost;

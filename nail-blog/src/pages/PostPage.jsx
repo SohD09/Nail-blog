@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, Spinner } from "flowbite-react";
-// import CommentSection from "../components/CommentSection";
+
 import PostCard from "../components/PostCard";
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";

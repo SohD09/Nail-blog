@@ -5,7 +5,7 @@ import { FiArrowRight } from "react-icons/fi";
 
 const PostCardFeatured = ({ post }) => {
   return (
-    <div className="bg-white dark:bg-black dark:bg-opacity-20 group relative flex flex-row w-full border-2 border-orange-300 h-[120px] md:h-[150px] overflow-hidden sm:w-[500px] transition-all shadow-xl hover:shadow-lg hover:shadow-slate-700 dark:hover:shadow-[1px_0px_25px_-5px_rgb(254,215,170,1)]">
+    <div className="bg-white dark:bg-black dark:bg-opacity-20 group relative flex flex-row w-full border-2 border-cyclamen h-[120px] md:h-[150px] overflow-hidden sm:w-[500px] transition-all shadow-xl hover:shadow-lg hover:shadow-slate-700 dark:hover:shadow-classic-rose">
       <Link className="" to={`/post/${post.slug}`}>
         <div className="relative">
           <img
@@ -13,7 +13,7 @@ const PostCardFeatured = ({ post }) => {
             alt="post cover"
             className="h-[120px] min-w-[150px] w-[150px] md:h-[150px] md:min-w-[200px] md:w-[200px] group-hover object-cover transition-all duration-300 z-20"
           />
-          <span className="absolute top-0 left-0 font-semibold text-sm p-1 rounded-br bg-orange-300 text-white dark:text-gray-900">
+          <span className="absolute top-0 left-0 font-semibold text-sm p-1 rounded-br bg-cyclamen text-white dark:text-gray-900">
             {post.category}
           </span>
         </div>

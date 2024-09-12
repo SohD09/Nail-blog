@@ -7,6 +7,8 @@ import FooterComponent from "./components/FooterComponent";
 import AdminOnlyPrivateRoute from "./components/AdminOnlyPrivateRoute";
 import PostPage from "./pages/PostPage";
 import UpdatePost from "./pages/UpdatePost";
+import Search from "./pages/Search";
+import ScrollToTop from "./components/ScrollToTop";
 
 const CreatePost = lazy(() => import("./pages/CreatePost"));
 
@@ -23,11 +25,13 @@ const App = () => {
   return (
     <Router>
       <Suspense fallback={<Loader />}>
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/search" element={<Search />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>

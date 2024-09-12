@@ -11,16 +11,14 @@ import "prismjs/plugins/toolbar/prism-toolbar.min";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/plugins/show-language/prism-show-language.min";
 import "prismjs/components/prism-jsx.min.js";
+import Loader from "../components/Loader";
+import CommentSection from "../components/CommentSection";
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
-
-  useEffect(() => {
-    Prism.highlightAll();
-  });
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -65,7 +63,7 @@ const PostPage = () => {
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <Spinner size="xl" />
+        <Loader />
       </div>
     );
 
@@ -76,7 +74,7 @@ const PostPage = () => {
           {post && post.title}
         </h1>
         <Link
-          to={`search?category=${post && post.category}`}
+          to={`/search?category=${post && post.category}`}
           className="self-center mt-5"
         >
           <Button color="gray" pill size="xs">
@@ -102,7 +100,7 @@ const PostPage = () => {
           dangerouslySetInnerHTML={{ __html: post && post.content }}
         ></div>
 
-        {/* <CommentSection postId={post._id} /> */}
+        <CommentSection postId={post._id} />
 
         <div className="flex flex-col justify-center items-center my-14">
           <h1 className="text-2xl mb-10">Recent Articles</h1>
